@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.ViewuserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.Viewuserinfo">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="userEmail" jdbcType="VARCHAR" property="useremail" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="userHeadImg" jdbcType="VARCHAR" property="userheadimg" />
+    <result column="userPhone" jdbcType="VARCHAR" property="userphone" />
+    <result column="userSignature" jdbcType="VARCHAR" property="usersignature" />
+    <result column="userType" jdbcType="VARCHAR" property="usertype" />
+    <result column="shoolName" jdbcType="VARCHAR" property="shoolname" />
+  </resultMap>
+  <select id="selectUserInfoByUserName" resultType="com.myappbbsbackend.api.entity.Viewuserinfo" parameterType="java.lang.String">
+SELECT *
+FROM viewUserInfo
+WHERE userName = #{username}
+  </select>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewuserinfo" useGeneratedKeys="true">
+    insert into viewuserinfo (`uid`, userEmail, userName, 
+      userHeadImg, userPhone, userSignature, 
+      userType, shoolName)
+    values (#{uid,jdbcType=INTEGER}, #{useremail,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{userheadimg,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, #{usersignature,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=VARCHAR}, #{shoolname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewuserinfo" useGeneratedKeys="true">
+    insert into viewuserinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="useremail != null">
+        userEmail,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="userheadimg != null">
+        userHeadImg,
+      </if>
+      <if test="userphone != null">
+        userPhone,
+      </if>
+      <if test="usersignature != null">
+        userSignature,
+      </if>
+      <if test="usertype != null">
+        userType,
+      </if>
+      <if test="shoolname != null">
+        shoolName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="useremail != null">
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userheadimg != null">
+        #{userheadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null">
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="usersignature != null">
+        #{usersignature,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null">
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="shoolname != null">
+        #{shoolname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
