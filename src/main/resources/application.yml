@@ -1,0 +1,28 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    username: dwg_admin
+    password: admin_root
+    url: jdbc:mysql://rm-bp181p947gt0a05vi7o.mysql.rds.aliyuncs.com:3306/coolschooldb?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:generator/*.xml
+  type-aliases-package: com.myappbbsbackend.test.entity
+
+---
+#server:
+#  port: 8888
+#spring:
+#  datasource:
+#    username: root
+#    password: admin
+#    url: jdbc:mysql://localhost:3306/coolschooldb?serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#mybatis:
+#  mapper-locations: classpath:generator/*.xml
+#  type-aliases-package: com.myappbbsbackend.test.entity
+
+
