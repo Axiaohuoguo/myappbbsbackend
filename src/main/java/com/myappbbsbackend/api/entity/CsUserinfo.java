@@ -3,13 +3,17 @@ package com.myappbbsbackend.api.entity;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * cs_userinfo
  * @author 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CsUserinfo implements Serializable {
     /**
      * id

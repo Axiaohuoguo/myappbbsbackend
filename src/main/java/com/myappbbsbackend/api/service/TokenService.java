@@ -1,10 +1,7 @@
 package com.myappbbsbackend.api.service;
 
 import com.myappbbsbackend.api.entity.CsUserinfo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.Date;
  */
 @Service
 public class TokenService implements TokenServiceInt{
+
     /**
      *  token 下发
      * @param csUserinfo
@@ -43,13 +41,20 @@ public class TokenService implements TokenServiceInt{
                 .signWith(SignatureAlgorithm.HS256,csUserinfo.getUserpassword())
                 .setExpiration(end);
         System.out.println(jwtBuilder.compact());
+
         return jwtBuilder.compact();
     }
 
-//    @Override
-//    public JwtBuilder decodeTokenJ(String tokens) {
-////        Claims claims = Jwts.parser();
-//        return null;
-//    }
+    /**
+     *  token解码
+     * @param tokens
+     * @param secretKey
+     * @return
+     */
+    @Override
+    public Claims decodeTokenJ(String tokens, String secretKey) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(tokens).getBody();
+    }
+
 
 }

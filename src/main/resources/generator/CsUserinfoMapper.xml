@@ -17,6 +17,23 @@
     id, `uid`, userName, userPassword, userType, userEmail, userPhone, schoolId, userSignature, 
     userHeadImg
   </sql>
+  <select id="isRegisterName" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" resultType="java.lang.Integer" >
+  SELECT COUNT(*)
+  FROM cs_userinfo
+  WHERE userName = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="isRegisterEmail" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" resultType="java.lang.Integer" >
+        SELECT COUNT(*)
+        FROM cs_userinfo
+        WHERE userEmail =  #{useremail,jdbcType=VARCHAR}
+  </select>
+
+  <select id="isRegisterPhone" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" resultType="java.lang.Integer" >
+      SELECT COUNT(*)
+      FROM cs_userinfo
+      WHERE userPhone =  #{userphone,jdbcType=VARCHAR}
+  </select>
+
   <select id="userLogin" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" resultType="java.lang.Integer">
   SELECT COUNT(*)
   FROM cs_userinfo
@@ -33,15 +50,10 @@
     delete from cs_userinfo
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" useGeneratedKeys="true">
-    insert into cs_userinfo (`uid`, userName, userPassword, 
-      userType, userEmail, userPhone, 
-      schoolId, userSignature, userHeadImg
-      )
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
-      #{usertype,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
-      #{schoolid,jdbcType=INTEGER}, #{usersignature,jdbcType=VARCHAR}, #{userheadimg,jdbcType=VARCHAR}
-      )
+  <insert id="userRegister" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" useGeneratedKeys="true">
+    insert into cs_userinfo ( userName, userPassword,  userEmail, userPhone,  schoolId )
+    values (#{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR},
+     #{useremail,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR},  #{schoolid,jdbcType=INTEGER}  )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" useGeneratedKeys="true">
     insert into cs_userinfo

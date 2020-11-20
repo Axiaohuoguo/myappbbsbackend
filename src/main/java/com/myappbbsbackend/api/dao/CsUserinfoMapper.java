@@ -10,7 +10,7 @@ public interface CsUserinfoMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(CsUserinfo record);
+    int userRegister(CsUserinfo record);
 
     int insertSelective(CsUserinfo record);
 
@@ -19,4 +19,11 @@ public interface CsUserinfoMapper {
     int updateByPrimaryKeySelective(CsUserinfo record);
 
     int updateByPrimaryKey(CsUserinfo record);
+
+    int isRegisterName(CsUserinfo csUserinfo);
+
+    int isRegisterEmail(CsUserinfo csUserinfo);
+
+    int isRegisterPhone(CsUserinfo csUserinfo);
+
 }

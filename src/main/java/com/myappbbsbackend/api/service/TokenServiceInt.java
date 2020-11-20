@@ -1,7 +1,10 @@
 package com.myappbbsbackend.api.service;
 
 import com.myappbbsbackend.api.entity.CsUserinfo;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @ Description:
@@ -9,9 +12,9 @@ import io.jsonwebtoken.JwtBuilder;
  * @ Date: 2020/11/19 15:04
  */
 public interface TokenServiceInt {
-    String getToken (CsUserinfo csUserinfo,boolean isRemember);
+    String getToken (CsUserinfo csUserinfo,boolean isRemember) throws UnsupportedEncodingException;
 
-//    JwtBuilder decodeTokenJ (String tokens);
+    Claims decodeTokenJ (String tokens, String secretKey) throws UnsupportedEncodingException, Exception;
 
 
 }
