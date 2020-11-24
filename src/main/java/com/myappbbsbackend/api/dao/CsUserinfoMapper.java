@@ -8,6 +8,8 @@ public interface CsUserinfoMapper {
 
     int userLogin(String username,String password);
 
+    int selectUserByUserId(int id);
+
     int deleteByPrimaryKey(Integer id);
 
     int userRegister(CsUserinfo record);

@@ -17,6 +17,11 @@
     id, `uid`, userName, userPassword, userType, userEmail, userPhone, schoolId, userSignature, 
     userHeadImg
   </sql>
+  <select id="selectUserByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  SELECT COUNT(*)
+  FROM cs_userinfo
+  WHERE id = #{id,jdbcType=INTEGER}
+  </select>
   <select id="isRegisterName" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" resultType="java.lang.Integer" >
   SELECT COUNT(*)
   FROM cs_userinfo

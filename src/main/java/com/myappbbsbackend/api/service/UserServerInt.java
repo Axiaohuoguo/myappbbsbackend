@@ -14,6 +14,9 @@ public interface UserServerInt {
     boolean userLogin(CsUserinfo userinfo);
     CsUserinfo getUserInfoByuserName(String username);
     Viewuserinfo getUserInfoViewByUserName(String username);
+
     String isRegister(CsUserinfo userinfo);
     boolean userRegister(CsUserinfo userinfo);
+
+    int selectUserByUserId(int id);
 }

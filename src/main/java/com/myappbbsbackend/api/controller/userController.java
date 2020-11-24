@@ -1,5 +1,8 @@
 package com.myappbbsbackend.api.controller;
 import com.alibaba.fastjson.JSONObject;
+import com.myappbbsbackend.Interceptor.AuthenticationInterceptor;
+import com.myappbbsbackend.Interceptor.PassToken;
+import com.myappbbsbackend.Interceptor.UserLoginToken;
 import com.myappbbsbackend.api.entity.CsUserinfo;
 import com.myappbbsbackend.api.entity.Viewuserinfo;
 import com.myappbbsbackend.api.service.TokenService;
@@ -9,10 +12,12 @@ import com.myappbbsbackend.planningcontrol.ApiResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @ Description:
@@ -21,6 +26,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping(value={"/api/user"})
+@CrossOrigin//允许跨域请求
 public class userController {
 
     @GetMapping("/hello")
@@ -41,8 +47,10 @@ public class userController {
     private TokenService tokenService;
 
     //    用户登录
+
     @PostMapping("/login")
-    public ApiResp userLogin(@RequestBody JSONObject jsonObject, HttpServletResponse response, HttpServletRequest request)  {
+    @PassToken
+    public ApiResp userLogin(@RequestBody JSONObject jsonObject, HttpServletResponse response, HttpServletRequest request){
         /**
          *  获取请求参数
          */
@@ -52,13 +60,14 @@ public class userController {
         CsUserinfo csUserinfo = new CsUserinfo();
         csUserinfo.setUsername(username);
         csUserinfo.setUserpassword(new MyUtil().mD5Hash(password));
+        HttpSession httpSession =request.getSession();
         /**
          * 判断是否能登陆
          */
         if (userServer.userLogin(csUserinfo))
         {
 
-            HttpSession httpSession =request.getSession();
+
             httpSession.setAttribute("user",username);
 
             csUserinfo = userServer.getUserInfoByuserName(username);
@@ -71,8 +80,6 @@ public class userController {
             cookie.setPath("/");
             response.addCookie(cookie);
             response.addCookie(cookie1);
-            //tokenService.decodeTokenJ(tokenService.getToken(csUserinfo,(boolean)jsonObject.get("isRemember")),"admin123");
-
          return ApiResp.retOK(viewuserinfo);
         }
         else {
@@ -81,22 +88,52 @@ public class userController {
     }
 
     /**
+     * 退出登录
+     * @ return
+     */
+    @GetMapping("/loginout")
+    @ResponseBody
+    public ApiResp loginOut()
+    {
+        return ApiResp.retOK();
+    }
+
+    /**
      * 免登陆验证
      * @param signature 签名
      * @param token token
      * @return
      */
+
     @GetMapping("/verification")
     @ResponseBody
-    public ApiResp userVerification(@CookieValue("signature")  String signature,
-                                    @CookieValue("token")String token)
+    @UserLoginToken
+    public ApiResp userVerification()
     {
+
+//        @CookieValue("signature")  String signature ,
+//        @CookieValue("token")String token
+//        Cookie[] cookie = request.getCookies();
+//        for (Cookie value : cookie) {
+//            System.out.println(value.getName()+":"+value.getValue());
+//
+//
+//        }
+
+//        if(signature.equals("")|| token.equals(""))
+//        {
+//            return ApiResp.retFail(401,"身份验证失败");
+//        }
+
+
         return ApiResp.retOK();
+
     }
 
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     @ResponseBody
+    @PassToken
     public ApiResp userRegister(@RequestBody JSONObject jsonObject)
     {
         String username = jsonObject.getString("username");

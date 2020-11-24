@@ -83,5 +83,11 @@ public class UserServer implements UserServerInt {
         return (csUserinfoMapper.userRegister(userinfo)==1);
     }
 
+    @Override
+    public int selectUserByUserId(int id) {
+
+        return csUserinfoMapper.selectUserByUserId(id);
+    }
+
 
 }

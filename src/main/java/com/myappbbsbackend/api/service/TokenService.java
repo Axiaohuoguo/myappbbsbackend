@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 /**
- * @ Description:
+ * @ Description: TokenServiceInt
  * @ Author: 小火锅
  * @ Date: 2020/11/19 15:04
  */
@@ -53,6 +53,7 @@ public class TokenService implements TokenServiceInt{
      */
     @Override
     public Claims decodeTokenJ(String tokens, String secretKey) {
+
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(tokens).getBody();
     }
 
