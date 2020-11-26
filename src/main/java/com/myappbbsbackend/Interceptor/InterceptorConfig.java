@@ -25,7 +25,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(
                 authenticationInterceptor())
-                .addPathPatterns("/**");// 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
+                .addPathPatterns("/**")
+                .excludePathPatterns("/swagger-resources/**", "/webjars/**","/v3/**", "/v2/**", "/swagger-ui/**");
+        // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
     }
 
     @Bean
@@ -33,80 +35,19 @@ public class InterceptorConfig implements WebMvcConfigurer {
         return new AuthenticationInterceptor();
     }
 
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-
-    }
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-
-    }
-
-    @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-
-    }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-
-    }
-
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-
-    }
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-
-    }
-
-    @Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-
-    }
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-    }
-
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-    }
-
-    @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-
-    }
-
-    @Override
-    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-
+//        // 设置允许跨域的路径
+//        registry.addMapping("/**")
+//                // 设置允许跨域请求的域名
+//                .allowedOrigins("http://localhost:8100")
+//                // 是否允许证书 不再默认开启
+//                .allowCredentials(false)
+//                // 设置允许的方法
+//                .allowedMethods("*")
+//                // 跨域允许时间
+//                .maxAge(3600);
     }
 
     @Override
@@ -118,4 +59,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public MessageCodesResolver getMessageCodesResolver() {
         return null;
     }
+
+
 }

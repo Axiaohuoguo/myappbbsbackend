@@ -67,4 +67,5 @@ public class CsUserinfo implements Serializable {
     private String userheadimg;
 
     private static final long serialVersionUID = 1L;
+
 }

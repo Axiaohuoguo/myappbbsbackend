@@ -35,4 +35,5 @@ public class Viewuserinfo implements Serializable {
     private String schoolid;
 
     private static final long serialVersionUID = 1L;
+
 }
