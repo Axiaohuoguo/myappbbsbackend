@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.CsShoolMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.CsShool">
+    <id column="schoolId" jdbcType="INTEGER" property="schoolid" />
+    <result column="shoolName" jdbcType="VARCHAR" property="shoolname" />
+    <result column="abbreviation" jdbcType="VARCHAR" property="abbreviation" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    schoolId, shoolName, abbreviation
+  </sql>
+
+  <select id="selectAllSchool" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cs_shool
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cs_shool
+    where schoolId = #{schoolid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_shool
+    where schoolId = #{schoolid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="schoolId" keyProperty="schoolid" parameterType="com.myappbbsbackend.api.entity.CsShool" useGeneratedKeys="true">
+    insert into cs_shool (shoolName, abbreviation)
+    values (#{shoolname,jdbcType=VARCHAR}, #{abbreviation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="schoolId" keyProperty="schoolid" parameterType="com.myappbbsbackend.api.entity.CsShool" useGeneratedKeys="true">
+    insert into cs_shool
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shoolname != null">
+        shoolName,
+      </if>
+      <if test="abbreviation != null">
+        abbreviation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shoolname != null">
+        #{shoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myappbbsbackend.api.entity.CsShool">
+    update cs_shool
+    <set>
+      <if test="shoolname != null">
+        shoolName = #{shoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviation != null">
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where schoolId = #{schoolid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsShool">
+    update cs_shool
+    set shoolName = #{shoolname,jdbcType=VARCHAR},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR}
+    where schoolId = #{schoolid,jdbcType=INTEGER}
+  </update>
+</mapper>

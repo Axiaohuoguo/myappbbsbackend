@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.ViewartinfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.Viewartinfo">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="artTitle" jdbcType="VARCHAR" property="arttitle" />
+    <result column="artHead" jdbcType="VARCHAR" property="arthead" />
+    <result column="artContent" jdbcType="VARCHAR" property="artcontent" />
+    <result column="artTime" jdbcType="TIMESTAMP" property="arttime" />
+    <result column="artEdiTime" jdbcType="TIMESTAMP" property="arteditime" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="schoolId" jdbcType="INTEGER" property="schoolid" />
+    <result column="userHeadImg" jdbcType="VARCHAR" property="userheadimg" />
+    <result column="shoolName" jdbcType="VARCHAR" property="shoolname" />
+  </resultMap>
+  <insert id="insert" parameterType="com.myappbbsbackend.api.entity.Viewartinfo">
+    insert into viewartinfo (id, artTitle, artHead, 
+      artContent, artTime, artEdiTime, 
+      userid, userName, schoolId, 
+      userHeadImg, shoolName)
+    values (#{id,jdbcType=INTEGER}, #{arttitle,jdbcType=VARCHAR}, #{arthead,jdbcType=VARCHAR}, 
+      #{artcontent,jdbcType=VARCHAR}, #{arttime,jdbcType=TIMESTAMP}, #{arteditime,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{schoolid,jdbcType=INTEGER}, 
+      #{userheadimg,jdbcType=VARCHAR}, #{shoolname,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectArtInfoById" parameterType="java.lang.Integer" resultType="com.myappbbsbackend.api.entity.Viewartinfo">
+      SELECT *
+      FROM viewartinfo
+      WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectArtInfolistByPage"  resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT *
+    FROM viewartinfo
+    where  schoolId = #{schoolid}
+    ORDER  BY artTime
+    DESC LIMIT #{page} , #{size}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.myappbbsbackend.api.entity.Viewartinfo">
+    insert into viewartinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="arttitle != null">
+        artTitle,
+      </if>
+      <if test="arthead != null">
+        artHead,
+      </if>
+      <if test="artcontent != null">
+        artContent,
+      </if>
+      <if test="arttime != null">
+        artTime,
+      </if>
+      <if test="arteditime != null">
+        artEdiTime,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="schoolid != null">
+        schoolId,
+      </if>
+      <if test="userheadimg != null">
+        userHeadImg,
+      </if>
+      <if test="shoolname != null">
+        shoolName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="arttitle != null">
+        #{arttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arthead != null">
+        #{arthead,jdbcType=VARCHAR},
+      </if>
+      <if test="artcontent != null">
+        #{artcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="arttime != null">
+        #{arttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arteditime != null">
+        #{arteditime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolid != null">
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="userheadimg != null">
+        #{userheadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="shoolname != null">
+        #{shoolname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

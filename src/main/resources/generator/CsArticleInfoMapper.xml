@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.CsArticleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.CsArticleInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="typeId" jdbcType="INTEGER" property="typeid" />
+    <result column="artTitle" jdbcType="VARCHAR" property="arttitle" />
+    <result column="artHead" jdbcType="VARCHAR" property="arthead" />
+    <result column="artContent" jdbcType="VARCHAR" property="artcontent" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="artTime" jdbcType="TIMESTAMP" property="arttime" />
+    <result column="artEdiTime" jdbcType="TIMESTAMP" property="arteditime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, typeId, artTitle, artHead, artContent, userId, artTime, artEdiTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cs_article_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_article_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo" useGeneratedKeys="true">
+    insert into cs_article_info (typeId, artTitle, artHead, 
+      artContent, userId, artTime, 
+      artEdiTime)
+    values (#{typeid,jdbcType=INTEGER}, #{arttitle,jdbcType=VARCHAR}, #{arthead,jdbcType=VARCHAR}, 
+      #{artcontent,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{arttime,jdbcType=TIMESTAMP}, 
+      #{arteditime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo" useGeneratedKeys="true">
+    insert into cs_article_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeid != null">
+        typeId,
+      </if>
+      <if test="arttitle != null">
+        artTitle,
+      </if>
+      <if test="arthead != null">
+        artHead,
+      </if>
+      <if test="artcontent != null">
+        artContent,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="arttime != null">
+        artTime,
+      </if>
+      <if test="arteditime != null">
+        artEdiTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeid != null">
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="arttitle != null">
+        #{arttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arthead != null">
+        #{arthead,jdbcType=VARCHAR},
+      </if>
+      <if test="artcontent != null">
+        #{artcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="arttime != null">
+        #{arttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arteditime != null">
+        #{arteditime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo">
+    update cs_article_info
+    <set>
+      <if test="typeid != null">
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="arttitle != null">
+        artTitle = #{arttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="arthead != null">
+        artHead = #{arthead,jdbcType=VARCHAR},
+      </if>
+      <if test="artcontent != null">
+        artContent = #{artcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="arttime != null">
+        artTime = #{arttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arteditime != null">
+        artEdiTime = #{arteditime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo">
+    update cs_article_info
+    set typeId = #{typeid,jdbcType=INTEGER},
+      artTitle = #{arttitle,jdbcType=VARCHAR},
+      artHead = #{arthead,jdbcType=VARCHAR},
+      artContent = #{artcontent,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      artTime = #{arttime,jdbcType=TIMESTAMP},
+      artEdiTime = #{arteditime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
