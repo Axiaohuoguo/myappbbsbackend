@@ -4,7 +4,7 @@ spring:
   datasource:
     username: dwg_admin
     password: admin_root
-    url: jdbc:mysql://rm-bp181p947gt0a05vi7o.mysql.rds.aliyuncs.com:3306/coolschooldb?serverTimezone=UTC
+    url: jdbc:mysql://rm-bp181p947gt0a05vi7o.mysql.rds.aliyuncs.com:3306/coolschooldb?serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:

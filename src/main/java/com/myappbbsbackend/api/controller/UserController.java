@@ -18,7 +18,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,14 +28,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value={"/api/user"})
 @CrossOrigin(
-        origins = "http://localhost:8100",
+        origins = {"http://localhost:8100","http://*/*"},
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST,
                 RequestMethod.PUT, RequestMethod.DELETE,
                 RequestMethod.OPTIONS, RequestMethod.HEAD}
 )//允许跨域请求
-public class userController {
+public class UserController {
 
     @PassToken
     @GetMapping("/hello")
@@ -68,7 +67,6 @@ public class userController {
         /**
          *  获取请求参数
          */
-
         System.out.println(jsonObject.getString("username"));
         String username = jsonObject.getString("username");
         String password = jsonObject.getString("password");
@@ -94,13 +92,10 @@ public class userController {
             Cookie cookie1 = new Cookie("signature", signature);
             cookie.setPath("/");
             cookie1.setPath("/");
-//            cookie.setHttpOnly(false);
-//            cookie1.setHttpOnly(false);
-
+            // cookie.setHttpOnly(false);
+            // cookie1.setHttpOnly(false);
             response.addCookie(cookie);
             response.addCookie(cookie1);
-
-
          return ApiResp.retOK(viewuserinfo);
         }
         else {
@@ -123,18 +118,14 @@ public class userController {
      * 免登陆验证
      * @return
      */
-
     @GetMapping("/verification")
     @ResponseBody
     @UserLoginToken
     public ApiResp userVerification(HttpServletRequest Request)
     {
-
-//        @CookieValue("signature")  String signature ,
-//        @CookieValue("token")String token
-
+    //        @CookieValue("signature")  String signature ,
+    //        @CookieValue("token")String token
         return ApiResp.retOK();
-
     }
 
 
