@@ -18,7 +18,7 @@
     insert into viewartinfo (id, artTitle, artHead, 
       artContent, artTime, artEdiTime, 
       userid, userName, schoolId, 
-      userHeadImg, shoolName)
+      userHeadImg, shoolName,replynum,likenum)
     values (#{id,jdbcType=INTEGER}, #{arttitle,jdbcType=VARCHAR}, #{arthead,jdbcType=VARCHAR}, 
       #{artcontent,jdbcType=VARCHAR}, #{arttime,jdbcType=TIMESTAMP}, #{arteditime,jdbcType=TIMESTAMP}, 
       #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{schoolid,jdbcType=INTEGER}, 

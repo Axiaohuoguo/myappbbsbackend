@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.ViewartlikeinfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.Viewartlikeinfo">
+    <result column="artId" jdbcType="INTEGER" property="artid" />
+    <result column="likeUserId" jdbcType="INTEGER" property="likeuserid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="userHeadImg" jdbcType="VARCHAR" property="userheadimg" />
+  </resultMap>
+  <select id="selectArtLikeList" parameterType="java.lang.Integer" resultType="com.myappbbsbackend.api.entity.Viewartlikeinfo">
+    SELECT *
+    from viewartlikeinfo
+    WHERE artid = #{artid}
+  </select>
+  <insert id="insert" keyColumn="artId" keyProperty="artid" parameterType="com.myappbbsbackend.api.entity.Viewartlikeinfo" useGeneratedKeys="true">
+    insert into viewartlikeinfo (likeUserId, username, userHeadImg
+      )
+    values (#{likeuserid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userheadimg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="artId" keyProperty="artid" parameterType="com.myappbbsbackend.api.entity.Viewartlikeinfo" useGeneratedKeys="true">
+    insert into viewartlikeinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="likeuserid != null">
+        likeUserId,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="userheadimg != null">
+        userHeadImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="likeuserid != null">
+        #{likeuserid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userheadimg != null">
+        #{userheadimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

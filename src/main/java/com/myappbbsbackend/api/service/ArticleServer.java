@@ -1,11 +1,7 @@
 package com.myappbbsbackend.api.service;
 
-import com.myappbbsbackend.api.dao.CsArticleInfoMapper;
-import com.myappbbsbackend.api.dao.CsArticleTypeMapper;
-import com.myappbbsbackend.api.dao.ViewartinfoMapper;
-import com.myappbbsbackend.api.entity.CsArticleInfo;
-import com.myappbbsbackend.api.entity.CsArticleType;
-import com.myappbbsbackend.api.entity.Viewartinfo;
+import com.myappbbsbackend.api.dao.*;
+import com.myappbbsbackend.api.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +26,18 @@ public class ArticleServer implements ArticleServerInt {
 
     @Autowired
     private ViewartinfoMapper viewartinfoMapper;
+
+    @Autowired
+    private CsReplyInfoMapper csReplyInfoMapper;
+
+    @Autowired
+    private CsArtLikeInfoMapper csArtLikeInfoMapper;
+
+    @Autowired
+    private ViewreplyinfoMapper viewreplyinfoMapper;
+
+    @Autowired
+    private ViewartlikeinfoMapper viewartlikeinfoMapper;
 
     @Override
     public List<CsArticleType> getArticleTypes() {
@@ -60,6 +68,57 @@ public class ArticleServer implements ArticleServerInt {
         data.put("size",size);
         data.put("schoolid",schoolid);
         return viewartinfoMapper.selectArtInfolistByPage(data);
+    }
+
+    @Override
+    public int insertReply(CsReplyInfo csReplyInfo) {
+        return csReplyInfoMapper.insert(csReplyInfo) ;
+    }
+
+    /**
+     * 点赞
+     * @param csArtLikeInfo
+     * @return
+     */
+    @Override
+    public String artLike(CsArtLikeInfo csArtLikeInfo) {
+        if(csArtLikeInfoMapper.isLike(csArtLikeInfo)==1){
+            //已经点赞了取消点赞
+            if(csArtLikeInfoMapper.deleteByArtAndUserid(csArtLikeInfo)==1){
+                //取消点赞成功
+                return "nulike";
+            }
+            return "nulikeF";
+        }else {
+            if(csArtLikeInfoMapper.insert(csArtLikeInfo) == 1){
+                //点赞成功
+            return "like";
+            }
+            //点赞失败
+            return "likeF";
+        }
+    }
+
+    /**
+     * 获得回复列表
+     * @param artid
+     * @return
+     */
+    @Override
+    public List<Viewreplyinfo> getReplyInfolist(int artid) {
+
+        return viewreplyinfoMapper.getReplyinfolist(artid);
+    }
+
+    @Override
+    public int isLike(CsArtLikeInfo csArtLikeInfo) {
+        return csArtLikeInfoMapper.isLike(csArtLikeInfo);
+    }
+
+    @Override
+    public List<Viewartlikeinfo> getArtLikeList(int artid) {
+
+        return viewartlikeinfoMapper.selectArtLikeList(artid);
     }
 
 

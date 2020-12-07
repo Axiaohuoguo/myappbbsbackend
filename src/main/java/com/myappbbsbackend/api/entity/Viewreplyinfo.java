@@ -8,38 +8,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * viewartinfo
+ * viewreplyinfo
  * @author 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Viewartinfo implements Serializable {
+public class Viewreplyinfo implements Serializable {
     private Integer id;
 
-    private String arttitle;
+    private Integer artid;
 
-    private String arthead;
+    private String replycontent;
 
-    private String artcontent;
+    private Date replytime;
 
-    private Date arttime;
-
-    private Date arteditime;
-
-    private Integer userid;
+    private Integer replyuserid;
 
     private String username;
 
-    private Integer schoolid;
-
     private String userheadimg;
-
-    private String shoolname;
-
-    private int replynum;
-
-    private int likenum;
 
     private static final long serialVersionUID = 1L;
 }

@@ -7,35 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * viewuserinfo
+ * viewartlikeinfo
  * @author 
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Viewuserinfo implements Serializable {
-    private Integer id;
+public class Viewartlikeinfo implements Serializable {
+    private Integer artid;
 
-    private Integer uid;
-
-    private String useremail;
+    private Integer likeuserid;
 
     private String username;
 
     private String userheadimg;
 
-    private String userphone;
-
-    private String usersignature;
-
-    private String usertype;
-
-    private String shoolname;
-
-    private String schoolid;
-
-    private int artnum;
-
     private static final long serialVersionUID = 1L;
-
 }

@@ -3,8 +3,7 @@ package com.myappbbsbackend.api.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.myappbbsbackend.Interceptor.PassToken;
 import com.myappbbsbackend.Interceptor.UserLoginToken;
-import com.myappbbsbackend.api.entity.CsArticleInfo;
-import com.myappbbsbackend.api.entity.Viewartinfo;
+import com.myappbbsbackend.api.entity.*;
 import com.myappbbsbackend.api.service.ArticleServer;
 import com.myappbbsbackend.planningcontrol.ApiResp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-
 
 /**
  * @ Description:
@@ -28,7 +24,7 @@ import java.util.Timer;
 @RestController
 @RequestMapping(value={"/api/art"})
 @CrossOrigin(
-        origins = {"http://localhost:8100","http://*/*"},
+        origins = {"http://localhost:8100","http://*/*","http://localhost"},
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST,
@@ -149,7 +145,7 @@ public class ArtController {
     /**
      * 通过id查询文章信息
      * @param id
-     * @return
+     * @ return
      */
     @PassToken
     @GetMapping("/getartinfobyid")
@@ -176,4 +172,103 @@ public class ArtController {
         List<Viewartinfo> viewartinfoList =  articleServer.selectArticleByPage(page,size,schoolid);
         return ApiResp.retOK(viewartinfoList);
     }
+
+    /**
+     * 回复文章的接口
+     * @param jsonObject
+     * @return
+     */
+    @PostMapping("/replyart")
+    @UserLoginToken
+    public ApiResp replyArt(@RequestBody JSONObject jsonObject){
+        CsReplyInfo csReplyInfo = new CsReplyInfo();
+        csReplyInfo.setArtid((int)jsonObject.get("artId"));
+        csReplyInfo.setReplycontent(jsonObject.getString("replyContent"));
+        csReplyInfo.setReplyuserid((int)jsonObject.get("replyUserId"));
+        csReplyInfo.setReplytime(new Date());
+        if(articleServer.insertReply(csReplyInfo)==1){
+            return ApiResp.retOK(csReplyInfo);
+        }else {
+         return ApiResp.retFail(505,"回复时发生错误");
+        }
+    }
+
+    /**
+     * 点赞或者取消点赞
+     * @param artid
+     * @param userid
+     * @return
+     */
+    @GetMapping("/like")
+    @UserLoginToken
+    public ApiResp artLike(@RequestParam("artid") int artid,@RequestParam("userid") int userid){
+        CsArtLikeInfo csArtLikeInfo = new CsArtLikeInfo();
+        csArtLikeInfo.setArtid(artid);
+        csArtLikeInfo.setLikeuserid(userid);
+       String likestate = articleServer.artLike(csArtLikeInfo);
+       JSONObject jsonObject = new JSONObject();
+        switch(likestate){
+            case "like" :
+                jsonObject.put("msg","点赞成功");
+                return ApiResp.retOK(jsonObject);
+            case "likeF" :
+                return ApiResp.retFail(505,"点赞失败未知错误");
+            case "nulike" :
+                jsonObject.put("msg","取消点赞成功");
+                return ApiResp.retOK(jsonObject);
+            case "nulikeF" :
+                return ApiResp.retFail(505,"取消点赞失败未知错误");
+            default : //可选
+               return ApiResp.retFail(555,"不可能出现的错误！！！");
+        }
+    }
+
+    /**
+     * 获得文章回复的列表
+     * @param artid
+     * @return
+     */
+    @GetMapping("/getreplylist")
+    @UserLoginToken
+    public ApiResp getReplyList(@RequestParam("artid") int artid){
+        List<Viewreplyinfo> viewreplyinfoList;
+        viewreplyinfoList =  articleServer.getReplyInfolist(artid);
+        return ApiResp.retOK(viewreplyinfoList);
+    }
+
+    /**
+     * 判断用户是否对某文章点赞
+     * @param artid
+     * @param userid
+     * @return
+     */
+    @GetMapping("/getislike")
+    @UserLoginToken
+    public ApiResp isLike(@RequestParam("artid") int artid, @RequestParam("userid") int userid){
+        CsArtLikeInfo csArtLikeInfo = new CsArtLikeInfo();
+        csArtLikeInfo.setLikeuserid(userid);
+        csArtLikeInfo.setArtid(artid);
+        JSONObject jsonObject = new JSONObject();
+        if(articleServer.isLike(csArtLikeInfo)==1){
+            jsonObject.put("islike",true);
+            return ApiResp.retOK(jsonObject);
+        }else {
+            jsonObject.put("islike",false);
+            return ApiResp.retOK(jsonObject);
+        }
+
+    }
+
+    /**
+     * 获得文章的点赞列表
+     * @param artid
+     * @return
+     */
+    @GetMapping("/getlikelist")
+    @UserLoginToken
+    public ApiResp getArtLikeList(@RequestParam("artid") int artid){
+        List<Viewartlikeinfo> viewartlikeinfoList = articleServer.getArtLikeList(artid);
+        return ApiResp.retOK(viewartlikeinfoList);
+    }
+
 }

@@ -1,8 +1,6 @@
 package com.myappbbsbackend.api.service;
 
-import com.myappbbsbackend.api.entity.CsArticleInfo;
-import com.myappbbsbackend.api.entity.CsArticleType;
-import com.myappbbsbackend.api.entity.Viewartinfo;
+import com.myappbbsbackend.api.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +18,14 @@ public interface ArticleServerInt {
     Viewartinfo selectArticleById(int id);
 
     List<Viewartinfo> selectArticleByPage(int page,int size,int schoolid);
+
+    int insertReply(CsReplyInfo csReplyInfo);
+
+    String artLike(CsArtLikeInfo csArtLikeInfo);
+
+    List<Viewreplyinfo> getReplyInfolist(int artid);
+
+    int isLike(CsArtLikeInfo csArtLikeInfo);
+
+    List<Viewartlikeinfo> getArtLikeList(int artid);
 }

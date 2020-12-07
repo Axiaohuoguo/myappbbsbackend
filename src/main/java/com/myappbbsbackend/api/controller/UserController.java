@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value={"/api/user"})
 @CrossOrigin(
-        origins = {"http://localhost:8100","http://*/*"},
+        origins = {"http://localhost:8100","http://*/*","http://localhost"},
         allowedHeaders = "*",
         allowCredentials = "true",
         methods = {RequestMethod.GET, RequestMethod.POST,
