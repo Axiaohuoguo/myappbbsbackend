@@ -108,6 +108,11 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selecArtListByUserid" parameterType="java.lang.Integer" resultType="com.myappbbsbackend.api.entity.CsArticleInfo">
+    SELECT *
+    from cs_article_info
+    WHERE userId = #{userid}
+  </select>
   <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo">
     update cs_article_info
     set typeId = #{typeid,jdbcType=INTEGER},

@@ -15,4 +15,7 @@ public interface ViewartinfoMapper {
     Viewartinfo selectArtInfoById(int id);
 
     List<Viewartinfo> selectArtInfolistByPage(Map<String,Object> data);
+
+    List<Viewartinfo> selectArtInfolistByTypeid(Map<String,Object> data);
+
 }

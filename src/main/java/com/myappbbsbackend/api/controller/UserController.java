@@ -109,8 +109,10 @@ public class UserController {
      */
     @GetMapping("/loginout")
     @ResponseBody
-    public ApiResp loginOut()
+    @UserLoginToken
+    public ApiResp loginOut(HttpServletRequest request)
     {
+        request.getSession().invalidate();
         return ApiResp.retOK();
     }
 

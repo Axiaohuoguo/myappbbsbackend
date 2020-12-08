@@ -28,4 +28,9 @@ public interface ArticleServerInt {
     int isLike(CsArtLikeInfo csArtLikeInfo);
 
     List<Viewartlikeinfo> getArtLikeList(int artid);
+
+    List<Viewartinfo> selectArticleByTypeId(int page, int size, int schoolid, int typeid);
+
+    List<CsArticleInfo> selecArtListByUserid(int userid);
+
 }

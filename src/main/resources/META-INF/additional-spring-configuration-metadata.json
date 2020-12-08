@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "oss.qiniu.accessKey",
+      "type": "java.lang.String",
+      "description": "Description for oss.qiniu.accessKey."
+    },
+    {
+      "name": "oss.qiniu.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for oss.qiniu.secretKey."
+    },
+    {
+      "name": "oss.qiniu.bucketName",
+      "type": "java.lang.String",
+      "description": "Description for oss.qiniu.bucketName."
+    },
+    {
+      "name": "oss.qiniu.domain",
+      "type": "java.lang.String",
+      "description": "Description for oss.qiniu.domain."
+    },
+    {
+      "name": "oss.qiniu.domain",
+      "type": "java.lang.String",
+      "description": "Description for oss.qiniu.domain."
+    }
+  ] }

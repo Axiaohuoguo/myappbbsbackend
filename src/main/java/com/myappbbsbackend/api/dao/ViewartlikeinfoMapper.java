@@ -12,4 +12,6 @@ public interface ViewartlikeinfoMapper {
     int insertSelective(Viewartlikeinfo record);
 
     List<Viewartlikeinfo> selectArtLikeList(int artid);
+
+
 }

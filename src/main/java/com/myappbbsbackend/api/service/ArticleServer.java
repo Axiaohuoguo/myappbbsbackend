@@ -121,5 +121,28 @@ public class ArticleServer implements ArticleServerInt {
         return viewartlikeinfoMapper.selectArtLikeList(artid);
     }
 
+    /***
+     * 通过类型id查询文章列表
+     * @param page
+     * @param size
+     * @param schoolid
+     * @param typeid
+     * @return
+     */
+    @Override
+    public List<Viewartinfo> selectArticleByTypeId(int page, int size, int schoolid, int typeid) {
+        Map<String, Object> data = new HashMap();
+        data.put("page",(page-1)*size);
+        data.put("size",size);
+        data.put("schoolid",schoolid);
+        data.put("typeid",typeid);
+        return viewartinfoMapper.selectArtInfolistByTypeid(data);
+    }
+
+    @Override
+    public List<CsArticleInfo> selecArtListByUserid(int userid) {
+        return csArticleInfoMapper.selecArtListByUserid(userid);
+    }
+
 
 }

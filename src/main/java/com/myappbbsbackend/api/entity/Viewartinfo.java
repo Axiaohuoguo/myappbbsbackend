@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 public class Viewartinfo implements Serializable {
     private Integer id;
 
+    private int typeid ;
+
     private String arttitle;
 
     private String arthead;

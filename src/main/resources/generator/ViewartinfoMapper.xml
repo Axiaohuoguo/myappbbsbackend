@@ -39,6 +39,15 @@
     DESC LIMIT #{page} , #{size}
   </select>
 
+  <select id="selectArtInfolistByTypeid"  resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT *
+    FROM viewartinfo
+    where  schoolid = #{schoolid} and typeid = #{typeid}
+    ORDER  BY artTime
+    DESC LIMIT #{page} , #{size}
+  </select>
+
+
   <insert id="insertSelective" parameterType="com.myappbbsbackend.api.entity.Viewartinfo">
     insert into viewartinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">

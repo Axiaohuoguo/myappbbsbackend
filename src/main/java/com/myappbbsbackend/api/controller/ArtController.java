@@ -271,4 +271,35 @@ public class ArtController {
         return ApiResp.retOK(viewartlikeinfoList);
     }
 
+    /**
+     * 通过类型id 查询文章列表
+     * @param page
+     * @param typeid
+     * @param size
+     * @param schoolid
+     * @return
+     */
+    @GetMapping("/selectartlistbytypeid")
+    @PassToken
+    public ApiResp selectArtListForTypeid(
+            @RequestParam("page") int page
+            , @RequestParam("typeid") int typeid
+            ,@RequestParam("size") int size
+            ,@RequestParam("schoolid") int schoolid){
+
+        if(page==0 || size==0){
+            return  ApiResp.retFail(400,"参数错误");
+        }
+
+        List<Viewartinfo> viewartinfoList =  articleServer.selectArticleByTypeId(page,size,schoolid,typeid);
+        return ApiResp.retOK(viewartinfoList);
+    }
+
+    @GetMapping("/selecartlistbyuserid")
+    @UserLoginToken
+    public ApiResp selecArtListByUserid(@RequestParam("userid") int userid){
+
+        return ApiResp.retOK(articleServer.selecArtListByUserid(userid));
+    }
+
 }

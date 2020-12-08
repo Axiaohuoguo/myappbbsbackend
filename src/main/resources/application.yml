@@ -1,15 +1,28 @@
 server:
   port: 8888
+# 七牛云存储
+oss:
+  qiniu:
+    domain: http://coolschool.ahy1.top    # 访问域名(默认使用七牛云测试域名)
+    accessKey: LbO-U8McnRZokfrvls8Oln2Wf0K7vbUficLhFPPpFBa9 # 公钥
+    secretKey: WuqgxUwYDnY4oDWgMWJq1CpRzSJD3SCX33uE2TSa # 私钥
+    bucketName: soolschoolmyapp  #存储空间名称
+
 spring:
   datasource:
     username: dwg_admin
     password: admin_root
     url: jdbc:mysql://rm-bp181p947gt0a05vi7o.mysql.rds.aliyuncs.com:3306/coolschooldb?serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 20MB  # 设置单个文件最--
+      max-request-size: 3000MB # 设置所有文件最大
 
 mybatis:
   mapper-locations: classpath:generator/*.xml
   type-aliases-package: com.myappbbsbackend.test.entity
+
 
 ---
 #server:
