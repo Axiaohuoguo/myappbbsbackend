@@ -140,8 +140,32 @@ public class ArticleServer implements ArticleServerInt {
     }
 
     @Override
-    public List<CsArticleInfo> selecArtListByUserid(int userid) {
-        return csArticleInfoMapper.selecArtListByUserid(userid);
+    public List<CsArticleInfo> selecArtListByUserid(int userid,int page ,int size) {
+        Map<String, Object> data = new HashMap();
+        data.put("page",(page-1)*size);
+        data.put("size",size);
+        data.put("userid",userid);
+        return csArticleInfoMapper.selecArtListByUserid(data);
+    }
+
+    /**
+     * 修改文章
+     * @param csArticleInfo
+     * @return
+     */
+    @Override
+    public int updateArticle(CsArticleInfo csArticleInfo) {
+        return csArticleInfoMapper.updateByPrimaryKey(csArticleInfo);
+    }
+
+    /**
+     * 删除文章 == 触发器实现删除评论点赞
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteArtByid(int id) {
+        return csArticleInfoMapper.deleteByPrimaryKey(id);
     }
 
 

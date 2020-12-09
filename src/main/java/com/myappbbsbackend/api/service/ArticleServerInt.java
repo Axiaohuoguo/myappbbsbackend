@@ -31,6 +31,10 @@ public interface ArticleServerInt {
 
     List<Viewartinfo> selectArticleByTypeId(int page, int size, int schoolid, int typeid);
 
-    List<CsArticleInfo> selecArtListByUserid(int userid);
+    List<CsArticleInfo> selecArtListByUserid(int userid,int page ,int size);
+
+    int updateArticle(CsArticleInfo csArticleInfo);
+
+    int deleteArtByid(int id);
 
 }

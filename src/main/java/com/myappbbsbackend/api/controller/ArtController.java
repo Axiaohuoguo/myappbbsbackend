@@ -297,9 +297,47 @@ public class ArtController {
 
     @GetMapping("/selecartlistbyuserid")
     @UserLoginToken
-    public ApiResp selecArtListByUserid(@RequestParam("userid") int userid){
+    public ApiResp selecArtListByUserid(
+            @RequestParam("userid") int userid,
+            @RequestParam("page") int page
+            ,@RequestParam("size") int size){
 
-        return ApiResp.retOK(articleServer.selecArtListByUserid(userid));
+        return ApiResp.retOK(articleServer.selecArtListByUserid(userid,page,size));
+    }
+
+    @PostMapping("/updateart")
+    @UserLoginToken
+    public ApiResp updateArt(@RequestBody JSONObject jsonObject){
+        if(jsonObject == null){
+            return ApiResp.retFail(400,"参数为空");
+        }
+        CsArticleInfo csArticleInfo = new CsArticleInfo();
+        csArticleInfo.setArteditime(new Date());
+
+
+        csArticleInfo.setId(Integer.parseInt(jsonObject.getString("id")));
+        csArticleInfo.setTypeid((int)jsonObject.get("typeId"));
+        csArticleInfo.setArttitle(jsonObject.getString("artTitle"));
+        csArticleInfo.setArtcontent(jsonObject.getString("editorData"));
+        if(articleServer.updateArticle(csArticleInfo) ==1){
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("artid",csArticleInfo.getId());
+            return  ApiResp.retOK(jsonObject1);
+        }
+        else {
+            return  ApiResp.retFail(505,"修改失败！未知错误");
+        }
+    }
+
+
+    @GetMapping("/deleteartbyid")
+    @UserLoginToken
+    public ApiResp deleteArtByid(@RequestParam("artid") int id){
+        if(articleServer.deleteArtByid(id)==1){
+            return ApiResp.retOK();
+        }
+        else
+        return ApiResp.retFail(505,"删除失败未知错误");
     }
 
 }

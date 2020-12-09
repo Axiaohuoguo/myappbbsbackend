@@ -4,6 +4,7 @@ import com.myappbbsbackend.api.entity.CsArticleInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CsArticleInfoMapper {
@@ -19,5 +20,5 @@ public interface CsArticleInfoMapper {
 
     int updateByPrimaryKey(CsArticleInfo record);
 
-    List<CsArticleInfo> selecArtListByUserid(int userid);
+    List<CsArticleInfo> selecArtListByUserid(Map<String,Object> data);
 }
