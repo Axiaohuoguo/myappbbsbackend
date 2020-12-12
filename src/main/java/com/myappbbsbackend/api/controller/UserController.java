@@ -13,6 +13,7 @@ import com.myappbbsbackend.myutil.MyUtil;
 import com.myappbbsbackend.planningcontrol.ApiResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.service.ApiInfo;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -171,6 +172,61 @@ public class UserController {
         List<CsShool> csShool ;
         csShool = shoolServer.getShool();
         return ApiResp.retOK(csShool);
+    }
+
+    /**
+     * 通过用户id 查询用户信息
+     * @param id
+     * @return
+     */
+    @UserLoginToken
+    @GetMapping("/getuserinfobyuserid")
+    public  ApiResp getuserInfoById(
+            @RequestParam("userid") int id
+            ){
+        CsUserinfo csUserinfo;
+        csUserinfo = userServer.getUserInfoByuserid(id);
+        return ApiResp.retOK(csUserinfo);
+    }
+
+
+    @UserLoginToken
+    @PostMapping("/updateuserinfo")
+    public ApiResp updateUserInfo(@RequestBody CsUserinfo csUserinfo){
+        if(userServer.updateUserInfo(csUserinfo)==1){
+            return ApiResp.retOK();
+        }
+        return ApiResp.retFail(400,"错的操作");
+
+    }
+
+    @UserLoginToken
+    @PostMapping("/updateuserpasw")
+    public ApiResp updateUserPass(
+            @RequestBody JSONObject jsonObject
+        ){
+
+        CsUserinfo csUserinfo = new CsUserinfo();
+        csUserinfo.setUsername(jsonObject.getString("username"));
+        String ypassword = jsonObject.getString("password");
+
+        csUserinfo.setUserpassword( new MyUtil().mD5Hash(ypassword));
+
+        if(!userServer.userLogin(csUserinfo)){
+            return ApiResp.retFail(400,"原密码错误");
+        }
+        else {
+            String npassword = jsonObject.getString("newpassword");
+            int id = (int)jsonObject.get("userid");
+            if(userServer.updateUserPaw(new MyUtil().mD5Hash(npassword)
+                    ,id)==1)
+            {
+                return ApiResp.retOK();
+            }
+        }
+
+        return ApiResp.retFail(400,"错的操作");
+
     }
 
 }

@@ -7,6 +7,9 @@ import com.myappbbsbackend.api.entity.Viewuserinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @ Description:
  * @ Author: 小火锅
@@ -87,6 +90,29 @@ public class UserServer implements UserServerInt {
     public int selectUserByUserId(int id) {
 
         return csUserinfoMapper.selectUserByUserId(id);
+    }
+
+    @Override
+    public CsUserinfo getUserInfoByuserid(int id) {
+        return csUserinfoMapper.selectUserId(id);
+    }
+
+    /**
+     * 修改用户信息
+     * @param csUserinfo
+     * @return
+     */
+    @Override
+    public int updateUserInfo(CsUserinfo csUserinfo) {
+        return csUserinfoMapper.updateByPrimaryKey(csUserinfo);
+    }
+
+    @Override
+    public int updateUserPaw(String password,int userId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("userpassword",password);
+        data.put("id",userId);
+        return csUserinfoMapper.updateUserPasw(data);
     }
 
 

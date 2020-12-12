@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.ViewfserfollowinfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.Viewfserfollowinfo">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="myuserid" jdbcType="INTEGER" property="myuserid" />
+    <result column="fansid" jdbcType="INTEGER" property="fansid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="userHeadImg" jdbcType="VARCHAR" property="userheadimg" />
+  </resultMap>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewfserfollowinfo" useGeneratedKeys="true">
+    insert into viewfserfollowinfo (myuserid, fansid, username, 
+      userHeadImg)
+    values (#{myuserid,jdbcType=INTEGER}, #{fansid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{userheadimg,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectMyFollowlist" parameterType="java.lang.Integer" resultType="com.myappbbsbackend.api.entity.Viewfserfollowinfo">
+  SELECT *
+  FROM viewfserfollowinfo
+  WHERE fansid = #{userId}
+  </select>
+  <select id="selectMyFanslist" parameterType="java.lang.Integer" resultType="com.myappbbsbackend.api.entity.Viewfserfollowinfo">
+SELECT a.* ,b.username,b.userHeadImg
+from cs_follow_info a
+LEFT JOIN cs_userinfo b
+on a.fansid = b.id
+WHERE myuserid = #{userId}
+  </select>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewfserfollowinfo" useGeneratedKeys="true">
+    insert into viewfserfollowinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="myuserid != null">
+        myuserid,
+      </if>
+      <if test="fansid != null">
+        fansid,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="userheadimg != null">
+        userHeadImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="myuserid != null">
+        #{myuserid,jdbcType=INTEGER},
+      </if>
+      <if test="fansid != null">
+        #{fansid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userheadimg != null">
+        #{userheadimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

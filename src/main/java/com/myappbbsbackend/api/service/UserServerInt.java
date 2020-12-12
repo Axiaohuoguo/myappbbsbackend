@@ -4,6 +4,8 @@ import com.myappbbsbackend.api.entity.CsUserinfo;
 import com.myappbbsbackend.api.entity.Viewuserinfo;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 /**
  * @ Description:
  * @ Author: 小火锅
@@ -19,4 +21,12 @@ public interface UserServerInt {
     boolean userRegister(CsUserinfo userinfo);
 
     int selectUserByUserId(int id);
+
+    CsUserinfo getUserInfoByuserid(int id);
+
+    int updateUserInfo(CsUserinfo csUserinfo);
+
+    int updateUserPaw(String password ,int userid);
+
+
 }

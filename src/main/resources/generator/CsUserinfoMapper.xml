@@ -17,6 +17,14 @@
     id, `uid`, userName, userPassword, userType, userEmail, userPhone, schoolId, userSignature, 
     userHeadImg
   </sql>
+
+
+  <select id="selectUserId" resultType="com.myappbbsbackend.api.entity.CsUserinfo" parameterType="java.lang.Integer">
+  SELECT *
+  FROM cs_userinfo
+  WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
   <select id="selectUserByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
   SELECT COUNT(*)
   FROM cs_userinfo
@@ -154,9 +162,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateUserPasw"  parameterType="java.util.Map" >
+    update cs_userinfo
+    set
+    userPassword = #{userpassword}
+    where id = #{id}
+  </update>
   <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsUserinfo">
     update cs_userinfo
-    set `uid` = #{uid,jdbcType=INTEGER},
+    set
       userName = #{username,jdbcType=VARCHAR},
       userPassword = #{userpassword,jdbcType=VARCHAR},
       userType = #{usertype,jdbcType=VARCHAR},

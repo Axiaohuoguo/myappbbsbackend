@@ -3,12 +3,16 @@ package com.myappbbsbackend.api.dao;
 import com.myappbbsbackend.api.entity.CsUserinfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 @Mapper
 public interface CsUserinfoMapper {
 
     int userLogin(String username,String password);
 
     int selectUserByUserId(int id);
+
+    CsUserinfo selectUserId(int  id);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -27,5 +31,7 @@ public interface CsUserinfoMapper {
     int isRegisterEmail(CsUserinfo csUserinfo);
 
     int isRegisterPhone(CsUserinfo csUserinfo);
+
+    int updateUserPasw(Map<String,Object> data);
 
 }
