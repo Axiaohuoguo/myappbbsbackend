@@ -21,4 +21,7 @@ public interface CsArticleInfoMapper {
     int updateByPrimaryKey(CsArticleInfo record);
 
     List<CsArticleInfo> selecArtListByUserid(Map<String,Object> data);
+
+    int artCheck(int artid);
+
 }

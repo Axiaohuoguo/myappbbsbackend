@@ -1,13 +1,16 @@
 package com.myappbbsbackend.api.service;
 
+import com.myappbbsbackend.api.dao.CsGlsqbMapper;
 import com.myappbbsbackend.api.dao.CsUserinfoMapper;
 import com.myappbbsbackend.api.dao.ViewuserinfoMapper;
+import com.myappbbsbackend.api.entity.CsGlsqb;
 import com.myappbbsbackend.api.entity.CsUserinfo;
 import com.myappbbsbackend.api.entity.Viewuserinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +25,8 @@ public class UserServer implements UserServerInt {
     private CsUserinfoMapper csUserinfoMapper;
     @Autowired
     private ViewuserinfoMapper viewuserinfoMapper;
+    @Autowired
+    private CsGlsqbMapper csGlsqbMapper;
 
     /**
      * 用户是否登录成功
@@ -113,6 +118,63 @@ public class UserServer implements UserServerInt {
         data.put("userpassword",password);
         data.put("id",userId);
         return csUserinfoMapper.updateUserPasw(data);
+    }
+
+
+    @Override
+    public int forbidden(int id) {
+        return csUserinfoMapper.forbidden(id);
+    }
+
+    @Override
+    public int nuforbidden(int id) {
+        return csUserinfoMapper.nuforbidden(id);
+    }
+
+    @Override
+    public int superUser(int id) {
+        return csUserinfoMapper.superUser(id);
+    }
+
+    @Override
+    public int adminUser(int id) {
+         return csUserinfoMapper.adminUser(id);
+    }
+
+    @Override
+    public int appTaAdmin(int userid) {
+        return csGlsqbMapper.appTaAdmin(userid);
+    }
+
+
+    @Override
+    public List<CsGlsqb> getAlllist() {
+        return csGlsqbMapper.getAlllist();
+    }
+
+    /**
+     * 提交
+     * @param csGlsqb
+     * @return
+     */
+    @Override
+    public int submitAdmin(CsGlsqb csGlsqb) {
+        return csGlsqbMapper.insert(csGlsqb);
+    }
+
+    /**
+     * 驳回
+     * @param id
+     * @return
+     */
+    @Override
+    public int rejectAdmin(int id) {
+        return csGlsqbMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int selectIsSubmit(int userid) {
+        return csGlsqbMapper.selectIsSubmit(userid);
     }
 
 

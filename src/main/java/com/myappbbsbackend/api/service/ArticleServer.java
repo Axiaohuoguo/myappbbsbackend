@@ -39,6 +39,7 @@ public class ArticleServer implements ArticleServerInt {
     @Autowired
     private ViewartlikeinfoMapper viewartlikeinfoMapper;
 
+
     @Override
     public List<CsArticleType> getArticleTypes() {
         return csArticleTypeMapper.selectAllType();
@@ -167,6 +168,24 @@ public class ArticleServer implements ArticleServerInt {
     public int deleteArtByid(int id) {
         return csArticleInfoMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int artCheck(int id) {
+        return csArticleInfoMapper.artCheck(id);
+    }
+
+    @Override
+    public List<Viewartinfo> getAllCheckList() {
+        return viewartinfoMapper.getAllCheckList();
+    }
+
+    @Override
+    public List<Viewartinfo> getAllCheckListByschool(int schoolId) {
+        return viewartinfoMapper.getAllCheckListByschool(schoolId);
+    }
+
+
+
 
 
 }

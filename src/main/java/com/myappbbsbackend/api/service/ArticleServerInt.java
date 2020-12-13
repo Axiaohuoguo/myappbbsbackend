@@ -37,4 +37,12 @@ public interface ArticleServerInt {
 
     int deleteArtByid(int id);
 
+    int artCheck(int id);
+
+    List<Viewartinfo> getAllCheckList();
+
+    List<Viewartinfo> getAllCheckListByschool(int schoolId);
+
+
+
 }

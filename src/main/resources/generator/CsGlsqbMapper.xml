@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.CsGlsqbMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.CsGlsqb">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userId, content,glstate
+  </sql>
+  <select id="selectIsSubmit" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select count(*)
+  from cs_glsqb
+  WHERE userId = #{userid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cs_glsqb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_glsqb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsGlsqb" useGeneratedKeys="true">
+    insert into cs_glsqb (userId, content,glstate)
+    values (#{userid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{glstate})
+  </insert>
+
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsGlsqb" useGeneratedKeys="true">
+    insert into cs_glsqb
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myappbbsbackend.api.entity.CsGlsqb">
+    update cs_glsqb
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsGlsqb">
+    update cs_glsqb
+    set userId = #{userid,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAlllist" resultMap="BaseResultMap">
+    select *
+    from cs_glsqb
+    where glstate = 1
+  </select>
+  <update id="appTaAdmin">
+    update cs_glsqb
+    set glstate = 2
+    where userid = #{userid}
+  </update>
+</mapper>

@@ -27,10 +27,10 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo" useGeneratedKeys="true">
     insert into cs_article_info (typeId, artTitle, artHead, 
       artContent, userId, artTime, 
-      artEdiTime)
+      artEdiTime,artState )
     values (#{typeid,jdbcType=INTEGER}, #{arttitle,jdbcType=VARCHAR}, #{arthead,jdbcType=VARCHAR}, 
       #{artcontent,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{arttime,jdbcType=TIMESTAMP}, 
-      #{arteditime,jdbcType=TIMESTAMP})
+      #{arteditime,jdbcType=TIMESTAMP},#{artState})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsArticleInfo" useGeneratedKeys="true">
     insert into cs_article_info
@@ -107,6 +107,12 @@
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="artCheck" parameterType="java.lang.Integer" >
+    update cs_article_info
+    set
+      artState = 1
+    where id = #{artid}
   </update>
   <select id="selecArtListByUserid" parameterType="java.util.Map" resultType="com.myappbbsbackend.api.entity.CsArticleInfo">
     SELECT *

@@ -34,4 +34,32 @@ public interface CsUserinfoMapper {
 
     int updateUserPasw(Map<String,Object> data);
 
+    /**
+     * 禁用
+     * @param id
+     * @return
+     */
+    int forbidden(int id);
+
+    /**
+     * 激活
+     * @param id
+     * @return
+     */
+    int nuforbidden(int id);
+
+    /**
+     * 成为超级管理
+     * @param id
+     * @return
+     */
+    int superUser(int id);
+
+    /**
+     * 成为普通管理
+     * @param id
+     * @return
+     */
+    int adminUser(int id);
+
 }

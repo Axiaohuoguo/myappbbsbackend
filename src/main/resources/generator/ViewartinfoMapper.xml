@@ -34,7 +34,7 @@
   <select id="selectArtInfolistByPage"  resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT *
     FROM viewartinfo
-    where  schoolId = #{schoolid}
+    where  schoolId = #{schoolid} and artstate = 1
     ORDER  BY artTime
     DESC LIMIT #{page} , #{size}
   </select>
@@ -42,11 +42,23 @@
   <select id="selectArtInfolistByTypeid"  resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT *
     FROM viewartinfo
-    where  schoolid = #{schoolid} and typeid = #{typeid}
+    where  schoolid = #{schoolid} and typeid = #{typeid} and artstate = 1
     ORDER  BY artTime
     DESC LIMIT #{page} , #{size}
   </select>
+  <select id="getAllCheckList" resultMap="BaseResultMap">
+    SELECT *
+    FROM viewartinfo
+    where artstate = 2
+    ORDER BY artTime DESC
+  </select>
+<select id="getAllCheckListByschool" resultType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT *
+    FROM viewartinfo
+    where  artstate = 2 and schoolid = #{schoolId}
+    ORDER  BY artTime DESC
 
+</select>
 
   <insert id="insertSelective" parameterType="com.myappbbsbackend.api.entity.Viewartinfo">
     insert into viewartinfo

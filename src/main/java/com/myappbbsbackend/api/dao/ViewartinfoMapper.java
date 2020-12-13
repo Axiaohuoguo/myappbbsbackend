@@ -18,4 +18,8 @@ public interface ViewartinfoMapper {
 
     List<Viewartinfo> selectArtInfolistByTypeid(Map<String,Object> data);
 
+    List<Viewartinfo> getAllCheckList();
+
+    List<Viewartinfo> getAllCheckListByschool(int schoolId);
+
 }

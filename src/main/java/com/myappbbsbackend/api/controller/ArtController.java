@@ -31,6 +31,7 @@ import java.util.List;
                 RequestMethod.PUT, RequestMethod.DELETE,
                 RequestMethod.OPTIONS, RequestMethod.HEAD}
 )//允许跨域请求
+
 public class ArtController {
 
     @Autowired(required = false)
@@ -105,7 +106,6 @@ public class ArtController {
         return filename;
     }
 
-
     /**
      * 文章发布接口
      * @param jsonObject
@@ -118,10 +118,19 @@ public class ArtController {
         if(jsonObject==null || jsonObject.toString()==""){
             return ApiResp.retFail(400,"内容为空");
         }
+        /**
+         * 状态 -   1==正常  2==待审核 3==审核未通过
+         */
+        int artstate ;
         String content = jsonObject.getString("editorData");
         String title = jsonObject.getString("artTitle");
         int userId = (int)jsonObject.get("authorId");
         int typeid = (int)jsonObject.get("typeId");
+        if(typeid == 1 || typeid==6 || typeid==7){
+            artstate = 2;
+        }
+        else { artstate = 1; }
+        System.out.println();
         CsArticleInfo csArticleInfo = new CsArticleInfo();
         csArticleInfo.setTypeid(typeid);
         Date date = new Date();
@@ -130,6 +139,7 @@ public class ArtController {
         csArticleInfo.setArtcontent(content);
         csArticleInfo.setUserid(userId);
         csArticleInfo.setArttitle(title);
+        csArticleInfo.setArtState(artstate);
         if(articleServer.insertArticle(csArticleInfo)==1){
 
             JSONObject jsonObject1 = new JSONObject();

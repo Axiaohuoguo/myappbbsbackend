@@ -107,18 +107,21 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     }
 
     private void returnJson(HttpServletResponse response){
-        response.setStatus(401);
+
         PrintWriter writer = null;
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         try {
             writer = response.getWriter();
+            response.setStatus(401);
+
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("code",401);
             jsonObject.put("msg","身份验证失败！");
             writer.print(jsonObject);
         } catch (IOException e){
-
+            assert false;
+            writer.print(e.toString());
         } finally {
             if(writer != null){
                 writer.close();

@@ -18,6 +18,31 @@
     userHeadImg
   </sql>
 
+<update id="forbidden" parameterType="java.lang.Integer">
+    update cs_userinfo
+    set
+      userType = '-1'
+    where id = #{id,jdbcType=INTEGER}
+</update>
+
+  <update id="nuforbidden" parameterType="java.lang.Integer">
+    update cs_userinfo
+    set
+      userType = '1'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="superUser" parameterType="java.lang.Integer">
+    update cs_userinfo
+    set
+      userType = '999'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="adminUser" parameterType="java.lang.Integer">
+    update cs_userinfo
+    set
+      userType = '2'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
   <select id="selectUserId" resultType="com.myappbbsbackend.api.entity.CsUserinfo" parameterType="java.lang.Integer">
   SELECT *

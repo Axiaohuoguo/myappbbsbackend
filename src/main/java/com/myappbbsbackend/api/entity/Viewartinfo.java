@@ -39,6 +39,8 @@ public class Viewartinfo implements Serializable {
 
     private String shoolname;
 
+    private int artstate;
+
     private int replynum;
 
     private int likenum;

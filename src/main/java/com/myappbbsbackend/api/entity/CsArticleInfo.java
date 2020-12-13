@@ -55,5 +55,10 @@ public class CsArticleInfo implements Serializable {
      */
     private Date arteditime;
 
+    /**
+     * 状态 -   1==正常  2==待审核 3==审核未通过
+     */
+    private int artState;
+
     private static final long serialVersionUID = 1L;
 }
