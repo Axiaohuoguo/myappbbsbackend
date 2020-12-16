@@ -351,6 +351,41 @@ public class ArtController {
     }
 
 
+    /**
+     * 提交回复的回复
+     * @param jsonObject
+     * @return
+     */
+    @PostMapping("/rereply")
+    @UserLoginToken
+    public ApiResp surReply(@RequestBody JSONObject jsonObject){
+//        replyId, reReplyContent, reReplyTime,reReplyUserId
+        CsReReplyInfo csReReplyInfo = new CsReReplyInfo();
+
+        csReReplyInfo.setReplyid(Integer.parseInt(jsonObject.getString("replyid")));
+        csReReplyInfo.setRereplycontent(jsonObject.getString("content"));
+        csReReplyInfo.setRereplytime(new Date());
+        csReReplyInfo.setRereplyuserid((int)jsonObject.get("userid"));
+        if(articleServer.suReReply(csReReplyInfo)==1){
+            return ApiResp.retOK();
+        }
+        return ApiResp.retFail(505,"操作失败未知错误");
+
+    }
+
+    /**
+     * 通过回复id获得回复的回复的列表
+     * @param id
+     * @return
+     */
+    @GetMapping("/getrereplylist")
+    @UserLoginToken
+    public ApiResp getrRepliListByReplyid(@RequestParam("replyid") int id){
+
+        return ApiResp.retOK(articleServer.getReReplylist(id));
+    }
+
+
 
 
 }

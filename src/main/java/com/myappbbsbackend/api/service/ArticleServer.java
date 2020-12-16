@@ -39,6 +39,12 @@ public class ArticleServer implements ArticleServerInt {
     @Autowired
     private ViewartlikeinfoMapper viewartlikeinfoMapper;
 
+    @Autowired
+    private CsReReplyInfoMapper csReReplyInfoMapper;
+
+    @Autowired
+    private ViewrereplyMapper viewrereplyMapper;
+
 
     @Override
     public List<CsArticleType> getArticleTypes() {
@@ -184,8 +190,25 @@ public class ArticleServer implements ArticleServerInt {
         return viewartinfoMapper.getAllCheckListByschool(schoolId);
     }
 
+    /**
+     * 提交回复的回复
+     * @param csReReplyInfo
+     * @return
+     */
+    @Override
+    public int suReReply(CsReReplyInfo csReReplyInfo) {
+        return csReReplyInfoMapper.insert(csReReplyInfo);
+    }
 
-
+    /**
+     * 获得回复的回复的列表
+     * @param replyid
+     * @return
+     */
+    @Override
+    public List<Viewrereply> getReReplylist(int replyid) {
+        return viewrereplyMapper.getReReplylist(replyid);
+    }
 
 
 }

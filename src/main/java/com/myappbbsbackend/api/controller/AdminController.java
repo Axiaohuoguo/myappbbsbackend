@@ -54,7 +54,7 @@ public class AdminController {
             return ApiResp.retFail(400,"你不是管理员");
         }
         //看看是否封号-激活 或者封号
-        if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("-1")){
+        if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("-1")||userServer.getUserInfoByuserid(tauserid).getUsertype().equals("2")){
             if(userServer.nuforbidden(tauserid)==1){
                 jsonObject.put("msg","激活成功");
                 return ApiResp.retOK(jsonObject);
@@ -63,7 +63,7 @@ public class AdminController {
         }if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("999")){
             jsonObject.put("msg","他是超级管理你不能对她操作");
             return ApiResp.retOK(jsonObject);
-        }if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("1")){
+        }if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("1")||userServer.getUserInfoByuserid(tauserid).getUsertype().equals("2")){
             if(userServer.forbidden(tauserid)==1){
                 jsonObject.put("msg","禁用成功");
                 return ApiResp.retOK(jsonObject);

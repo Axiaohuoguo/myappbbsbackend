@@ -43,6 +43,8 @@ public interface ArticleServerInt {
 
     List<Viewartinfo> getAllCheckListByschool(int schoolId);
 
+    int suReReply(CsReReplyInfo csReReplyInfo);
 
+    List<Viewrereply> getReReplylist(int replyid);
 
 }

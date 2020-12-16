@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.CsReReplyInfoMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.CsReReplyInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="replyId" jdbcType="INTEGER" property="replyid" />
+    <result column="reReplyContent" jdbcType="VARCHAR" property="rereplycontent" />
+    <result column="reReplyTime" jdbcType="TIMESTAMP" property="rereplytime" />
+    <result column="reReplyUserId" jdbcType="INTEGER" property="rereplyuserid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, replyId, reReplyContent, reReplyTime, reReplyUserId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cs_re_reply_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_re_reply_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsReReplyInfo" useGeneratedKeys="true">
+    insert into cs_re_reply_info (replyId, reReplyContent, reReplyTime, 
+      reReplyUserId)
+    values (#{replyid,jdbcType=INTEGER}, #{rereplycontent,jdbcType=VARCHAR}, #{rereplytime,jdbcType=TIMESTAMP}, 
+      #{rereplyuserid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsReReplyInfo" useGeneratedKeys="true">
+    insert into cs_re_reply_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="replyid != null">
+        replyId,
+      </if>
+      <if test="rereplycontent != null">
+        reReplyContent,
+      </if>
+      <if test="rereplytime != null">
+        reReplyTime,
+      </if>
+      <if test="rereplyuserid != null">
+        reReplyUserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="replyid != null">
+        #{replyid,jdbcType=INTEGER},
+      </if>
+      <if test="rereplycontent != null">
+        #{rereplycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="rereplytime != null">
+        #{rereplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rereplyuserid != null">
+        #{rereplyuserid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myappbbsbackend.api.entity.CsReReplyInfo">
+    update cs_re_reply_info
+    <set>
+      <if test="replyid != null">
+        replyId = #{replyid,jdbcType=INTEGER},
+      </if>
+      <if test="rereplycontent != null">
+        reReplyContent = #{rereplycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="rereplytime != null">
+        reReplyTime = #{rereplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rereplyuserid != null">
+        reReplyUserId = #{rereplyuserid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myappbbsbackend.api.entity.CsReReplyInfo">
+    update cs_re_reply_info
+    set replyId = #{replyid,jdbcType=INTEGER},
+      reReplyContent = #{rereplycontent,jdbcType=VARCHAR},
+      reReplyTime = #{rereplytime,jdbcType=TIMESTAMP},
+      reReplyUserId = #{rereplyuserid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

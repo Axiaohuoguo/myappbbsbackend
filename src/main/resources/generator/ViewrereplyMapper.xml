@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myappbbsbackend.api.dao.ViewrereplyMapper">
+  <resultMap id="BaseResultMap" type="com.myappbbsbackend.api.entity.Viewrereply">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="replyId" jdbcType="INTEGER" property="replyid" />
+    <result column="reReplyContent" jdbcType="VARCHAR" property="rereplycontent" />
+    <result column="reReplyTime" jdbcType="TIMESTAMP" property="rereplytime" />
+    <result column="reReplyUserId" jdbcType="INTEGER" property="rereplyuserid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="userHeadImg" jdbcType="VARCHAR" property="userheadimg" />
+  </resultMap>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewrereply" useGeneratedKeys="true">
+    insert into viewrereply (replyId, reReplyContent, reReplyTime, 
+      reReplyUserId, userHeadImg)
+    values (#{replyid,jdbcType=INTEGER}, #{rereplycontent,jdbcType=VARCHAR}, #{rereplytime,jdbcType=TIMESTAMP}, 
+      #{rereplyuserid,jdbcType=INTEGER}, #{userheadimg,jdbcType=VARCHAR})
+  </insert>
+  <select id="getReReplylist" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT *
+    FROM viewreReply
+    where replyId = #{replyid}
+  </select>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.Viewrereply" useGeneratedKeys="true">
+    insert into viewrereply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="replyid != null">
+        replyId,
+      </if>
+      <if test="rereplycontent != null">
+        reReplyContent,
+      </if>
+      <if test="rereplytime != null">
+        reReplyTime,
+      </if>
+      <if test="rereplyuserid != null">
+        reReplyUserId,
+      </if>
+      <if test="userheadimg != null">
+        userHeadImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="replyid != null">
+        #{replyid,jdbcType=INTEGER},
+      </if>
+      <if test="rereplycontent != null">
+        #{rereplycontent,jdbcType=VARCHAR},
+      </if>
+      <if test="rereplytime != null">
+        #{rereplytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rereplyuserid != null">
+        #{rereplyuserid,jdbcType=INTEGER},
+      </if>
+      <if test="userheadimg != null">
+        #{userheadimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
