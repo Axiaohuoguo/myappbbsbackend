@@ -59,6 +59,18 @@
     ORDER  BY artTime DESC
 
 </select>
+  <select id="selectAllFlollwArt" resultType="java.util.Map" resultMap="BaseResultMap">
+    SELECT *
+    from viewartinfo
+    WHERE userId in
+    (
+    SELECT myuserid
+    FROM cs_follow_info
+    WHERE fansid = #{userid}
+    ) AND artState = 1
+    ORDER  BY artTime
+    DESC LIMIT #{page} , #{size}
+  </select>
 
   <insert id="insertSelective" parameterType="com.myappbbsbackend.api.entity.Viewartinfo">
     insert into viewartinfo

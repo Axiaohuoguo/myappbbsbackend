@@ -1,6 +1,7 @@
 package com.myappbbsbackend.api.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -65,6 +66,16 @@ public class CsUserinfo implements Serializable {
      * 头像路径
      */
     private String userheadimg;
+
+    /**
+     * 注册时间
+     */
+    private Date userregtime;
+
+    /**
+     * 性别
+     */
+    private int usersex;
 
     private static final long serialVersionUID = 1L;
 

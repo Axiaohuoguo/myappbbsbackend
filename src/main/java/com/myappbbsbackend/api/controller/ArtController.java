@@ -385,6 +385,22 @@ public class ArtController {
         return ApiResp.retOK(articleServer.getReReplylist(id));
     }
 
+    /**
+     * 获得关注者的文章列表
+     * @param id
+     * @return
+     */
+    @GetMapping("/getfollwartlist")
+    @UserLoginToken
+    public ApiResp getFollwArtList(
+            @RequestParam("userid") int id,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+                                   ){
+
+        return ApiResp.retOK(articleServer.selectAllFlollwArt(id,page,size));
+    }
+
 
 
 

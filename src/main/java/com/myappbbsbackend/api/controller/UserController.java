@@ -19,6 +19,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -93,8 +94,8 @@ public class UserController {
             Cookie cookie1 = new Cookie("signature", signature);
             cookie.setPath("/");
             cookie1.setPath("/");
-            // cookie.setHttpOnly(false);
-            // cookie1.setHttpOnly(false);
+            cookie.setMaxAge(86400*10);
+            cookie1.setMaxAge(86400*10);
             response.addCookie(cookie);
             response.addCookie(cookie1);
          return ApiResp.retOK(viewuserinfo);
@@ -150,6 +151,7 @@ public class UserController {
         csUserinfo.setSchoolid(Integer.parseInt(schoolId));
         csUserinfo.setUserphone(phone);
         csUserinfo.setUseremail(email);
+        csUserinfo.setUserregtime(new Date());
         String isregister =  userServer.isRegister(csUserinfo);
         if (isregister.equals("true"))
         {

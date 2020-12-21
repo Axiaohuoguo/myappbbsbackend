@@ -22,4 +22,6 @@ public interface ViewartinfoMapper {
 
     List<Viewartinfo> getAllCheckListByschool(int schoolId);
 
+    List<Viewartinfo> selectAllFlollwArt(Map<String,Object> data);
+
 }

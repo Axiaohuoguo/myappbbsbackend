@@ -89,9 +89,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="userRegister" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" useGeneratedKeys="true">
-    insert into cs_userinfo ( userName, userPassword,  userEmail, userPhone,  schoolId )
+    insert into cs_userinfo ( userName, userPassword,  userEmail, userPhone,  schoolId ,userRegTime )
     values (#{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR},
-     #{useremail,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR},  #{schoolid,jdbcType=INTEGER}  )
+     #{useremail,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR},  #{schoolid,jdbcType=INTEGER},#{userregtime}  )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.myappbbsbackend.api.entity.CsUserinfo" useGeneratedKeys="true">
     insert into cs_userinfo
@@ -203,7 +203,8 @@
       userPhone = #{userphone,jdbcType=VARCHAR},
       schoolId = #{schoolid,jdbcType=INTEGER},
       userSignature = #{usersignature,jdbcType=VARCHAR},
-      userHeadImg = #{userheadimg,jdbcType=VARCHAR}
+      userHeadImg = #{userheadimg,jdbcType=VARCHAR},
+      usersex = #{usersex}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

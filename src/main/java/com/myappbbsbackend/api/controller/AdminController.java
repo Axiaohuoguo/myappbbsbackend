@@ -61,7 +61,7 @@ public class AdminController {
             }else { return ApiResp.retFail(400,"激活失败"); }
 
         }if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("999")){
-            jsonObject.put("msg","他是超级管理你不能对她操作");
+            jsonObject.put("msg","TA是超级管理你不能对TA操作");
             return ApiResp.retOK(jsonObject);
         }if(userServer.getUserInfoByuserid(tauserid).getUsertype().equals("1")||userServer.getUserInfoByuserid(tauserid).getUsertype().equals("2")){
             if(userServer.forbidden(tauserid)==1){

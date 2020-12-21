@@ -210,5 +210,19 @@ public class ArticleServer implements ArticleServerInt {
         return viewrereplyMapper.getReReplylist(replyid);
     }
 
+    /**
+     * 获得关注者的文章
+     * @param userid
+     * @return
+     */
+    @Override
+    public List<Viewartinfo> selectAllFlollwArt(int userid,int page,int size) {
+        Map<String, Object> data = new HashMap();
+        data.put("page",(page-1)*size);
+        data.put("size",size);
+        data.put("userid",userid);
+        return viewartinfoMapper.selectAllFlollwArt(data);
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.myappbbsbackend.api.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,13 @@ public class Viewuserinfo implements Serializable {
     private String usertype;
 
     private String shoolname;
+
+    private Date userregtime;
+
+    /**
+     * 性别
+     */
+    private int usersex;
 
     private String schoolid;
 

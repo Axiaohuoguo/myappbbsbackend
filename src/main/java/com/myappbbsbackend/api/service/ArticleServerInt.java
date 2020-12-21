@@ -47,4 +47,6 @@ public interface ArticleServerInt {
 
     List<Viewrereply> getReReplylist(int replyid);
 
+    List<Viewartinfo> selectAllFlollwArt(int userid,int page,int size);
+
 }
